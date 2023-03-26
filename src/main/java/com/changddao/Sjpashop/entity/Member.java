@@ -3,6 +3,7 @@ package com.changddao.Sjpashop.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,5 +26,10 @@ public class Member {
 
     public Member(String username) {
         this.username = username;
+    }
+
+    public Member(String username, Address address) {
+        this.username = username;
+        this.address = address;
     }
 }
