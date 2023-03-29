@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -41,5 +42,10 @@ public class MemberService {
     public Member findOne(Long memberId) {
         Member findMember = memberRepository.findById(memberId).orElse(null);
         return findMember;
+    }
+    @Transactional
+    public void update(Long id, String name) {
+        Member findMember = memberRepository.findById(id).orElse(null);
+        findMember.setUsername(name);
     }
 }
