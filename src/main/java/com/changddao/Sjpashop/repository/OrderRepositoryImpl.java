@@ -1,9 +1,6 @@
 package com.changddao.Sjpashop.repository;
 
-import com.changddao.Sjpashop.entity.Order;
-import com.changddao.Sjpashop.entity.OrderStatus;
-import com.changddao.Sjpashop.entity.QMember;
-import com.changddao.Sjpashop.entity.QOrder;
+import com.changddao.Sjpashop.entity.*;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,6 +9,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static com.changddao.Sjpashop.entity.QDelivery.*;
 import static com.changddao.Sjpashop.entity.QMember.*;
 import static com.changddao.Sjpashop.entity.QOrder.*;
 
@@ -30,6 +28,16 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
                 .limit(1000)
                 .fetch();
         return orderList;
+
+    }
+
+    @Override
+    public List<Order> findAllWithMemberDelivery() {
+        List<Order> orders = queryFactory.selectFrom(order)
+                .join(order.member, member).fetchJoin()
+                .join(order.delivery, delivery).fetchJoin()
+                .fetch();
+    return orders;
 
     }
 
