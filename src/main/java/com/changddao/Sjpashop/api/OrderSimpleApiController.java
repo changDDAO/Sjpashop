@@ -5,6 +5,7 @@ import com.changddao.Sjpashop.entity.Order;
 import com.changddao.Sjpashop.entity.OrderStatus;
 import com.changddao.Sjpashop.repository.OrderRepository;
 import com.changddao.Sjpashop.repository.OrderSearch;
+import com.changddao.Sjpashop.repository.OrderSimpleQueryDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,14 @@ public class OrderSimpleApiController {
         List<Order> orders = orderRepository.findAllWithMemberDelivery();
         List<SimpleOrderDto> collect = orders.stream().map(SimpleOrderDto::new).collect(Collectors.toList());
         return new Result(collect);
+    }
+
+    @GetMapping("/api/v4/simple-orders")
+    public Result ordersV4() {
+        List<OrderSimpleQueryDto> osqd = orderRepository.findOrderDto();
+        return new Result(osqd);
+
+
     }
 
     @Data

@@ -9,4 +9,9 @@ public interface OrderRepositoryCustom {
 
     public List<Order> findAllWithMemberDelivery();
 
+    public List<OrderSimpleQueryDto> findOrderDto();
+
+    public List<Order> findAllWithItem();
+
+
 }
