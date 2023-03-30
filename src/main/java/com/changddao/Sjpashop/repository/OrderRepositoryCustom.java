@@ -13,5 +13,7 @@ public interface OrderRepositoryCustom {
 
     public List<Order> findAllWithItem();
 
+    public List<OrderQueryDto> findOrderQueryDto();
+
 
 }

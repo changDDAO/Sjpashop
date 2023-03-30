@@ -68,7 +68,13 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
         return result;
     }
 
-
+    @Override
+    public List<OrderQueryDto> findOrderQueryDto() {
+        List<Order> fetch = queryFactory.selectFrom(order)
+                .join(order.member, member)
+                .join(order.delivery, delivery)
+                .fetch();
+    }
 
     private BooleanExpression nameLike(String memberName) {
         if(!StringUtils.hasText(memberName))

@@ -4,6 +4,7 @@ import com.changddao.Sjpashop.entity.Address;
 import com.changddao.Sjpashop.entity.Order;
 import com.changddao.Sjpashop.entity.OrderItem;
 import com.changddao.Sjpashop.entity.OrderStatus;
+import com.changddao.Sjpashop.repository.OrderQueryDto;
 import com.changddao.Sjpashop.repository.OrderRepositoryCustom;
 import com.changddao.Sjpashop.repository.OrderSearch;
 import lombok.Data;
@@ -37,6 +38,11 @@ public class OrderApiController {
                 .map(o -> new OrderDto(o))
                 .collect(Collectors.toList());
         return collect;
+    }
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4() {
+
     }
 
 
