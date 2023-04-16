@@ -70,10 +70,28 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
 
     @Override
     public List<OrderQueryDto> findOrderQueryDto() {
-        List<Order> fetch = queryFactory.selectFrom(order)
+        List<OrderQueryDto> result = queryFactory.select(Projections.constructor(OrderQueryDto.class, order.id,
+                        member.username, order.orderDate, order.orderStatus, delivery.address))
+                .from(order)
                 .join(order.member, member)
                 .join(order.delivery, delivery)
                 .fetch();
+        System.out.println("result = " + result);
+        result.forEach(o->{
+            List<OrderItemQueryDto> oiqDto = findOrderItemQueryDto(o.getOrderId());
+            o.setOrderItems(oiqDto);
+        });
+        return result;
+    }
+
+    @Override
+    public List<OrderItemQueryDto> findOrderItemQueryDto(Long orderId) {
+        List<OrderItemQueryDto> oiResult = queryFactory.select(Projections.constructor(OrderItemQueryDto.class, orderItem.order.id,orderItem.item.name, orderItem.orderPrice, orderItem.count))
+                .from(orderItem)
+                .join(orderItem.order, order)
+                .join(orderItem.item, item)
+                .fetch();
+        return oiResult;
     }
 
     private BooleanExpression nameLike(String memberName) {

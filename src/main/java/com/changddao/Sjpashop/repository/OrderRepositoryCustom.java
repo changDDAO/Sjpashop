@@ -15,5 +15,7 @@ public interface OrderRepositoryCustom {
 
     public List<OrderQueryDto> findOrderQueryDto();
 
+    public List<OrderItemQueryDto> findOrderItemQueryDto(Long orderId);
+
 
 }
